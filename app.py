@@ -18,7 +18,7 @@ system_instruction = """
 
 # 3. 인공지능 두뇌 연결 (Gemini)
 model = genai.GenerativeModel(
-    model_name="gemini-2.5-flash",
+    model_name="gemini-3.6-flash",
     system_instruction=system_instruction
 )
 
