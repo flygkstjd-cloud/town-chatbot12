@@ -43,11 +43,16 @@ for message in st.session_state.chat_session.history:
 user_input = st.chat_input("할아버지에게 하고 싶은 말을 적어보세요.")
 
 if user_input:
-    # 학생의 질문을 화면에 띄우기
     with st.chat_message("user", avatar="👦"):
         st.write(user_input)
     
-    # 덕배 할아버지의 대답을 화면에 띄우기
     with st.chat_message("assistant", avatar="👴"):
-        response = st.session_state.chat_session.send_message(user_input)
-        st.write(response.text)
+        # stream=True 옵션을 넣으면 글자가 실시간으로 전송됩니다!
+        response = st.session_state.chat_session.send_message(user_input, stream=True)
+        
+        # 글자를 화면에 타자 치듯 뿌려주는 마법의 상자
+        message_placeholder = st.empty()
+        full_response = ""
+        for chunk in response:
+            full_response += chunk.text
+            message_placeholder.write(full_response)
